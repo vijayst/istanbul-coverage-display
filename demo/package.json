@@ -16,13 +16,13 @@
     "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --history-api-fallback",
     "build": "webpack",
     "report": "nyc report"
   },
   "dependencies": {
-    "istanbul-coverage-display": "^1.0.6",
     "react": "^16.7.0-alpha.2",
-    "react-dom": "^16.7.0-alpha.2"
+    "react-dom": "^16.7.0-alpha.2",
+    "react-router-dom": "^4.3.1"
   }
 }
