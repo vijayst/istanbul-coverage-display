@@ -94,7 +94,8 @@ export default class Coverage extends Component {
                         style={Object.assign({
                             padding: 20,
                             backgroundColor: 'rgba(0,0,0,.12)',
-                            position: 'fixed'
+                            position: 'fixed',
+                            zIndex: 10000
                         }, this.getPosition(Padding))}
                     >
                         <table border="1" cellSpacing="0">
