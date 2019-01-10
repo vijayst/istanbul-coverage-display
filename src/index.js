@@ -6,10 +6,49 @@ const BaseButtonStyle = {
     color: 'white',
     padding: '5px 10px',
     fontSize: 16,
-    border: 0
+    border: 0,
+    borderRadius: 3
 };
 
-const Padding = 30;
+const TablePadding = 30;
+
+const columns = [
+    {
+        title: 'Folder / File',
+        name: 'name',
+        width: '100px'
+    },
+    {
+        title: 'Path',
+        name: 'path',
+        width: '200px'
+    },
+    {
+        title: 'Line Count',
+        name: 'lineCount',
+        width: '50px'
+    },
+    {
+        title: 'Branches',
+        name: 'branchPerc',
+        textAlign: 'center'
+    },
+    {
+        title: 'Functions',
+        name: 'functionPerc',
+        textAlign: 'center'
+    },
+    {
+        title: 'Lines',
+        name: 'linePerc',
+        textAlign: 'center'
+    },
+    {
+        title: 'Statements',
+        name: 'stmtPerc',
+        textAlign: 'center'
+    }
+];
 
 export default class Coverage extends Component {
     constructor() {
@@ -92,14 +131,21 @@ export default class Coverage extends Component {
             <div>
                 {fileCoverages.length ? (
                     <div
-                        style={Object.assign({
-                            padding: 20,
-                            backgroundColor: 'rgba(0,0,0,.12)',
-                            position: 'fixed',
-                            zIndex: 10000
-                        }, this.getPosition(Padding))}
+                        style={Object.assign(
+                            {
+                                padding: 20,
+                                backgroundColor: 'rgba(0,0,0,.12)',
+                                position: 'fixed',
+                                zIndex: 10000
+                            },
+                            this.getPosition(TablePadding)
+                        )}
                     >
-                        <table border="1" cellSpacing="0" style={{ maxHeight: 400, overflow: 'scroll' }}>
+                        <table
+                            border="1"
+                            cellSpacing="0"
+                            style={{ maxHeight: 400, overflow: 'scroll' }}
+                        >
                             <thead>
                                 <tr>
                                     <th width="200">File</th>
