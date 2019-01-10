@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import libCoverage from 'istanbul-lib-coverage';
 import PropTypes from 'prop-types';
+import TableTree from 'react-table-tree';
 
 const BaseButtonStyle = {
     color: 'white',
@@ -26,38 +27,59 @@ const columns = [
     {
         title: 'Line Count',
         name: 'lineCount',
-        width: '50px'
+        textAlign: 'center',
+        width: '60px'
     },
     {
         title: 'Branches',
         name: 'branchPerc',
-        textAlign: 'center'
+        textAlign: 'center',
+        width: '60px'
     },
     {
         title: 'Functions',
         name: 'functionPerc',
-        textAlign: 'center'
+        textAlign: 'center',
+        width: '60px'
     },
     {
         title: 'Lines',
         name: 'linePerc',
-        textAlign: 'center'
+        textAlign: 'center',
+        width: '60px'
     },
     {
         title: 'Statements',
         name: 'stmtPerc',
-        textAlign: 'center'
+        textAlign: 'center',
+        width: '60px'
     }
 ];
 
 export default class Coverage extends Component {
     constructor() {
         super();
-        this.state = { fileCoverages: [] };
+        this.state = { treeNodes: [] };
     }
 
     handleClose() {
-        this.setState({ fileCoverages: [] });
+        this.setState({ treeNodes: [] });
+    }
+
+    getInitialSubData() {
+        return {
+            total: 0,
+            covered: 0
+        };
+    }
+
+    getInitialData() {
+        return {
+            branches: this.getInitialSubData(),
+            functions: this.getInitialSubData(),
+            lines: this.getInitialSubData(),
+            statements: this.getInitialSubData()
+        };
     }
 
     handleShow() {
@@ -75,12 +97,100 @@ export default class Coverage extends Component {
             };
         });
         fileCoverages.forEach(fileCoverage => {
-            fileCoverage.key = fileCoverage.key
-                .split('/')
-                .slice(minSlashes - 1)
-                .join('/');
+            const paths = fileCoverage.key.split('/').slice(minSlashes - 1);
+            fileCoverage.path = paths.join('/');
+            fileCoverage.parentPath =
+                paths.length > 1
+                    ? paths.slice(0, paths.length - 1).join('/')
+                    : rootPath;
+            fileCoverage.level = paths.length;
+            fileCoverage.name = paths[fileCoverage.level - 1];
+            fileCoverage.paths = paths;
+            fileCoverage.leaf = true;
         });
-        this.setState({ fileCoverages });
+        let id = 1;
+        const rootPath = '[Total]';
+        const rootNode = {
+            id: id++,
+            path: rootPath,
+            name: 'Total',
+            level: 0
+        };
+        const treeData = {
+            [rootNode.path]: rootNode
+        };
+        fileCoverages.forEach(fc => {
+            fc.id = id++;
+            if (fc.level === 1) {
+                fc.parentId = 1;
+                return;
+            }
+            let childNode = fc;
+            for (let i = fc.level - 2; i >= 0; i--) {
+                const paths = fc.paths.slice(0, i + 1);
+                const path = paths.join('/');
+                let node = treeData[path];
+                if (!node) {
+                    node = {
+                        id: id++,
+                        path,
+                        parentPath:
+                            paths.length > 1
+                                ? paths.slice(0, paths.length - 1).join('/')
+                                : rootPath,
+                        name: paths[paths.length - 1],
+                        parentId: 1,
+                        level: i + 1
+                    };
+                    treeData[path] = node;
+                }
+                childNode.parentId = node.id;
+                childNode = node;
+            }
+        });
+        let treeNodes = Object.values(treeData);
+        treeNodes = treeNodes.concat(fileCoverages);
+        treeNodes.sort(function(a, b) {
+            return a.level < b.level ? 1 : a.level > b.level ? -1 : 0;
+        });
+        treeNodes.forEach(treeNode => {
+            if (!treeNode.leaf) {
+                const children = treeNodes.filter(
+                    n => n.parentId === treeNode.id
+                );
+                const data = this.getInitialData();
+                children.forEach(c => {
+                    data.branches.total += c.data.branches.total;
+                    data.branches.covered += c.data.branches.covered;
+                    data.functions.total += c.data.functions.total;
+                    data.functions.covered += c.data.functions.covered;
+                    data.lines.total += c.data.lines.total;
+                    data.lines.covered += c.data.lines.covered;
+                    data.statements.total += c.data.statements.total;
+                    data.statements.covered += c.data.statements.covered;
+                });
+                data.branches.pct = data.branches.total ? Math.round(
+                    data.branches.covered * 100 / data.branches.total
+                ) : 100;
+                data.functions.pct = data.functions.total ? Math.round(
+                    data.functions.covered * 100 / data.functions.total
+                ) : 100;
+                data.lines.pct = data.lines.total ? Math.round(
+                    data.lines.covered * 100 / data.lines.total
+                ) : 100;
+                data.statements.pct = data.statements.total ? Math.round(
+                    data.statements.covered * 100 / data.statements.total
+                ) : 100;
+                treeNode.data = data;
+            }
+            treeNode.lineCount = treeNode.data.statements.total;
+            treeNode.branchPerc = treeNode.data.branches.pct;
+            treeNode.functionPerc = treeNode.data.functions.pct;
+            treeNode.linePerc = treeNode.data.lines.pct;
+            treeNode.stmtPerc = treeNode.data.statements.pct;
+        });
+
+        this.setState({ treeNodes });
     }
 
     getPosition(padding = 0) {
@@ -115,7 +225,7 @@ export default class Coverage extends Component {
     }
 
     render() {
-        const { fileCoverages } = this.state;
+        const { treeNodes } = this.state;
         const position = this.getPosition();
         const showButtonStyle = Object.assign({}, BaseButtonStyle, position, {
             position: 'fixed',
@@ -129,50 +239,23 @@ export default class Coverage extends Component {
 
         return (
             <div>
-                {fileCoverages.length ? (
+                {treeNodes.length ? (
                     <div
                         style={Object.assign(
                             {
                                 padding: 20,
-                                backgroundColor: 'rgba(0,0,0,.12)',
+                                backgroundColor: '#ccc',
                                 position: 'fixed',
                                 zIndex: 10000
                             },
                             this.getPosition(TablePadding)
                         )}
                     >
-                        <table
-                            border="1"
-                            cellSpacing="0"
-                            style={{ maxHeight: 400, overflow: 'scroll' }}
-                        >
-                            <thead>
-                                <tr>
-                                    <th width="200">File</th>
-                                    <th width="50">Branches</th>
-                                    <th width="50">Functions</th>
-                                    <th width="50">Lines</th>
-                                    <th width="50">Statements</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {fileCoverages.map(fileCoverage => (
-                                    <tr key={fileCoverage.key}>
-                                        <td>{fileCoverage.key}</td>
-                                        <td>
-                                            {fileCoverage.data.branches.pct}
-                                        </td>
-                                        <td>
-                                            {fileCoverage.data.functions.pct}
-                                        </td>
-                                        <td>{fileCoverage.data.lines.pct}</td>
-                                        <td>
-                                            {fileCoverage.data.statements.pct}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        <TableTree
+                            datasets={treeNodes}
+                            columns={columns}
+                            rootId={1}
+                        />
                         <div style={{ textAlign: 'right', marginTop: 12 }}>
                             <button
                                 style={hideButtonStyle}
