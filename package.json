@@ -18,9 +18,9 @@
     "rollup-plugin-node-resolve": "^3.4.0"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
     "istanbul-lib-coverage": "^2.0.0",
-    "prop-types": "^15.0.0"
+    "prop-types": "^15.0.0",
+    "react": "^16.0.0"
   },
   "scripts": {
     "build": "rollup --config"
@@ -32,5 +32,8 @@
     "react",
     "istanbul",
     "code coverage"
-  ]
+  ],
+  "dependencies": {
+    "react-table-tree": "^1.2.0"
+  }
 }
