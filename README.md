@@ -19,4 +19,5 @@ one of bottomLeft, topLeft, bottomRight, topRight. By default, the button is at 
 There is a [demo project](https://github.com/vijayst/istanbuldemo) for this package. And there is a [blog post](https://vijayt.com/post/code-coverage-of-manual-testing-using-istanbul/) with more details about why we need this.
 
 Screenshot of the component display coverage report:
-![Coverage display]('coverage-display.png')
+
+![Coverage display](coverage-display.png)
