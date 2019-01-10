@@ -80,7 +80,8 @@ export default class Coverage extends Component {
         const position = this.getPosition();
         const showButtonStyle = Object.assign({}, BaseButtonStyle, position, {
             position: 'fixed',
-            backgroundColor: 'red'
+            backgroundColor: 'red',
+            zIndex: 10000
         });
 
         const hideButtonStyle = Object.assign({}, BaseButtonStyle, {
