@@ -1,0 +1,35 @@
+{
+  "name": "istanbul-coverage-display",
+  "version": "1.0.0",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "repository": "git@github.com:vijayst/istanbul-coverage-display.git",
+  "author": "vijayst <vijayst@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "istanbul-lib-coverage": "^2.0.1",
+    "react": "^16.7.0",
+    "rollup": "^0.67.3",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^3.4.0"
+  },
+  "peerDependencies": {
+    "react": "^16.7.0",
+    "istanbul-lib-coverage": "^2.0.1"
+  },
+  "scripts": {
+    "build": "rollup --config"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "react",
+    "istanbul",
+    "code coverage"
+  ]
+}
