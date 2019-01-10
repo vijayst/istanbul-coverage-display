@@ -33,7 +33,5 @@
     "istanbul",
     "code coverage"
   ],
-  "dependencies": {
-    "react-table-tree": "^1.2.0"
-  }
+  "dependencies": {}
 }

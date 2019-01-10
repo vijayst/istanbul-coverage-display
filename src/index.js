@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import libCoverage from 'istanbul-lib-coverage';
 import PropTypes from 'prop-types';
-import TableTree from 'react-table-tree';
 
 const BaseButtonStyle = {
     color: 'white',
@@ -12,49 +11,6 @@ const BaseButtonStyle = {
 };
 
 const TablePadding = 30;
-
-const columns = [
-    {
-        title: 'Folder / File',
-        name: 'name',
-        width: '100px'
-    },
-    {
-        title: 'Path',
-        name: 'path',
-        width: '200px'
-    },
-    {
-        title: 'Line Count',
-        name: 'lineCount',
-        textAlign: 'center',
-        width: '60px'
-    },
-    {
-        title: 'Branches',
-        name: 'branchPerc',
-        textAlign: 'center',
-        width: '60px'
-    },
-    {
-        title: 'Functions',
-        name: 'functionPerc',
-        textAlign: 'center',
-        width: '60px'
-    },
-    {
-        title: 'Lines',
-        name: 'linePerc',
-        textAlign: 'center',
-        width: '60px'
-    },
-    {
-        title: 'Statements',
-        name: 'stmtPerc',
-        textAlign: 'center',
-        width: '60px'
-    }
-];
 
 export default class Coverage extends Component {
     constructor() {
@@ -169,18 +125,25 @@ export default class Coverage extends Component {
                     data.statements.total += c.data.statements.total;
                     data.statements.covered += c.data.statements.covered;
                 });
-                data.branches.pct = data.branches.total ? Math.round(
-                    data.branches.covered * 100 / data.branches.total
-                ) : 100;
-                data.functions.pct = data.functions.total ? Math.round(
-                    data.functions.covered * 100 / data.functions.total
-                ) : 100;
-                data.lines.pct = data.lines.total ? Math.round(
-                    data.lines.covered * 100 / data.lines.total
-                ) : 100;
-                data.statements.pct = data.statements.total ? Math.round(
-                    data.statements.covered * 100 / data.statements.total
-                ) : 100;
+                data.branches.pct = data.branches.total
+                    ? Math.round(
+                          (data.branches.covered * 100) / data.branches.total
+                      )
+                    : 100;
+                data.functions.pct = data.functions.total
+                    ? Math.round(
+                          (data.functions.covered * 100) / data.functions.total
+                      )
+                    : 100;
+                data.lines.pct = data.lines.total
+                    ? Math.round((data.lines.covered * 100) / data.lines.total)
+                    : 100;
+                data.statements.pct = data.statements.total
+                    ? Math.round(
+                          (data.statements.covered * 100) /
+                              data.statements.total
+                      )
+                    : 100;
                 treeNode.data = data;
             }
             treeNode.lineCount = treeNode.data.statements.total;
@@ -237,25 +200,54 @@ export default class Coverage extends Component {
             backgroundColor: 'rgba(0,0,0,.24)'
         });
 
+        const rootNode = treeNodes.find(n => n.level === 0);
+
         return (
             <div>
-                {treeNodes.length ? (
+                {rootNode ? (
                     <div
                         style={Object.assign(
                             {
                                 padding: 20,
-                                backgroundColor: '#ccc',
+                                backgroundColor: '#eee',
                                 position: 'fixed',
                                 zIndex: 10000
                             },
                             this.getPosition(TablePadding)
                         )}
                     >
-                        <TableTree
-                            datasets={treeNodes}
-                            columns={columns}
-                            rootId={1}
-                        />
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th width="200" />
+                                    <th
+                                        width="100"
+                                    />
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Line count:</td>
+                                    <td align="right">{rootNode.lineCount}</td>
+                                </tr>
+                                <tr>
+                                    <td>Branch coverage:</td>
+                                    <td align="right">{rootNode.branchPerc}%</td>
+                                </tr>
+                                <tr>
+                                    <td>Function coverage:</td>
+                                    <td align="right">{rootNode.functionPerc}%</td>
+                                </tr>
+                                <tr>
+                                    <td>Line coverage:</td>
+                                    <td align="right">{rootNode.linePerc}%</td>
+                                </tr>
+                                <tr>
+                                    <td>Statement coverage:</td>
+                                    <td align="right">{rootNode.stmtPerc}%</td>
+                                </tr>
+                            </tbody>
+                        </table>
                         <div style={{ textAlign: 'right', marginTop: 12 }}>
                             <button
                                 style={hideButtonStyle}

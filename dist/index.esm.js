@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import libCoverage from 'istanbul-lib-coverage';
 import PropTypes from 'prop-types';
-import TableTree from 'react-table-tree';
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -95,40 +94,6 @@ var BaseButtonStyle = {
   borderRadius: 3
 };
 var TablePadding = 30;
-var columns = [{
-  title: 'Folder / File',
-  name: 'name',
-  width: '100px'
-}, {
-  title: 'Path',
-  name: 'path',
-  width: '200px'
-}, {
-  title: 'Line Count',
-  name: 'lineCount',
-  textAlign: 'center',
-  width: '60px'
-}, {
-  title: 'Branches',
-  name: 'branchPerc',
-  textAlign: 'center',
-  width: '60px'
-}, {
-  title: 'Functions',
-  name: 'functionPerc',
-  textAlign: 'center',
-  width: '60px'
-}, {
-  title: 'Lines',
-  name: 'linePerc',
-  textAlign: 'center',
-  width: '60px'
-}, {
-  title: 'Statements',
-  name: 'stmtPerc',
-  textAlign: 'center',
-  width: '60px'
-}];
 
 var Coverage =
 /*#__PURE__*/
@@ -334,18 +299,31 @@ function (_Component) {
       var hideButtonStyle = Object.assign({}, BaseButtonStyle, {
         backgroundColor: 'rgba(0,0,0,.24)'
       });
-      return React.createElement("div", null, treeNodes.length ? React.createElement("div", {
+      var rootNode = treeNodes.find(function (n) {
+        return n.level === 0;
+      });
+      return React.createElement("div", null, rootNode ? React.createElement("div", {
         style: Object.assign({
           padding: 20,
-          backgroundColor: '#ccc',
+          backgroundColor: '#eee',
           position: 'fixed',
           zIndex: 10000
         }, this.getPosition(TablePadding))
-      }, React.createElement(TableTree, {
-        datasets: treeNodes,
-        columns: columns,
-        rootId: 1
-      }), React.createElement("div", {
+      }, React.createElement("table", null, React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", {
+        width: "200"
+      }), React.createElement("th", {
+        width: "100"
+      }))), React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, "Line count:"), React.createElement("td", {
+        align: "right"
+      }, rootNode.lineCount)), React.createElement("tr", null, React.createElement("td", null, "Branch coverage:"), React.createElement("td", {
+        align: "right"
+      }, rootNode.branchPerc, "%")), React.createElement("tr", null, React.createElement("td", null, "Function coverage:"), React.createElement("td", {
+        align: "right"
+      }, rootNode.functionPerc, "%")), React.createElement("tr", null, React.createElement("td", null, "Line coverage:"), React.createElement("td", {
+        align: "right"
+      }, rootNode.linePerc, "%")), React.createElement("tr", null, React.createElement("td", null, "Statement coverage:"), React.createElement("td", {
+        align: "right"
+      }, rootNode.stmtPerc, "%")))), React.createElement("div", {
         style: {
           textAlign: 'right',
           marginTop: 12
