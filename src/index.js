@@ -39,7 +39,7 @@ export default class Coverage extends Component {
             fileCoverage.key = fileCoverage.key
                 .split('/')
                 .slice(minSlashes - 1)
-                .join();
+                .join('/');
         });
         this.setState({ fileCoverages });
     }
@@ -98,7 +98,7 @@ export default class Coverage extends Component {
                             zIndex: 10000
                         }, this.getPosition(Padding))}
                     >
-                        <table border="1" cellSpacing="0">
+                        <table border="1" cellSpacing="0" style={{ maxHeight: 400, overflow: 'scroll' }}>
                             <thead>
                                 <tr>
                                     <th width="200">File</th>

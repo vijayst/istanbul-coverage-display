@@ -1,6 +1,6 @@
 {
   "name": "istanbul-coverage-display",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "repository": "git@github.com:vijayst/istanbul-coverage-display.git",
@@ -19,7 +19,8 @@
   },
   "peerDependencies": {
     "react": "^16.0.0",
-    "istanbul-lib-coverage": "^2.0.0"
+    "istanbul-lib-coverage": "^2.0.0",
+    "prop-types": "^15.0.0"
   },
   "scripts": {
     "build": "rollup --config"
