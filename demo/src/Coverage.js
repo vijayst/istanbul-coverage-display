@@ -1,6 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CoverageDetail } from '../../dist/index.esm';
+let CoverageDetail;
+if (process.env.NODE_ENV === 'production') {
+    CoverageDetail = require('istanbul-coverage-display').CoverageDetail;
+} else {
+    CoverageDetail = require('../../dist/index.esm').CoverageDetail;
+}
 
 export default function Coverage() {
     return (

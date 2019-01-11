@@ -8,16 +8,22 @@ import Render from './basics/Render';
 import Book from './Book';
 import Coverage from './Coverage';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { CoverageSummary } from '../../dist/index.esm';
 import GDSFP from './comp/GDSFP';
 import Constructor from './comp/Constructor';
 import Class from './comp/Class';
 import Render2 from './comp/Render';
 import Comp2 from './comp/Comp';
 
+let CoverageSummary;
+if (process.env.NODE_ENV === 'production') {
+    CoverageSummary = require('istanbul-coverage-display').CoverageSummary;
+} else {
+    CoverageSummary = require('../../dist/index.esm').CoverageSummary;
+}
+
 function Index() {
     return (
-        <BrowserRouter basename={process.env.NODE_ENV === 'production' ? '/istanbul-coverage-display/' : '/'}>
+        <BrowserRouter>
             <Fragment>
                 <Switch>
                     <Route path="/coverage" component={Coverage} />
