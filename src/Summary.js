@@ -19,11 +19,19 @@ export default class Summary extends Component {
         this.state = { data: {} };
     }
 
+    handleRefresh() {
+        this.refresh();
+    }
+
     handleClose() {
         this.setState({ data: {} });
     }
 
     handleShow() {
+        this.refresh();
+    }
+
+    refresh() {
         const fileCoverages = getCoverage();
         if (fileCoverages) {
             const data = computeTotals(fileCoverages);
@@ -72,7 +80,9 @@ export default class Summary extends Component {
         });
 
         const hideButtonStyle = Object.assign({}, BaseButtonStyle, {
-            backgroundColor: 'rgba(0,0,0,.24)'
+            backgroundColor: 'rgba(0,0,0,.24)',
+            marginLeft: 16,
+            width: 90
         });
 
         return (
@@ -93,31 +103,46 @@ export default class Summary extends Component {
                             <thead>
                                 <tr>
                                     <th width="200" />
-                                    <th
-                                        width="100"
-                                    />
+                                    <th width="100" />
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>Branch coverage:</td>
-                                    <td align="right">{data.branches.pct}% ({data.branches.total})</td>
+                                    <td align="right">
+                                        {data.branches.pct}% (
+                                        {data.branches.total})
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Function coverage:</td>
-                                    <td align="right">{data.functions.pct}% ({data.functions.total})</td>
+                                    <td align="right">
+                                        {data.functions.pct}% (
+                                        {data.functions.total})
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Line coverage:</td>
-                                    <td align="right">{data.lines.pct}% ({data.lines.total})</td>
+                                    <td align="right">
+                                        {data.lines.pct}% ({data.lines.total})
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Statement coverage:</td>
-                                    <td align="right">{data.statements.pct}% ({data.statements.total})</td>
+                                    <td align="right">
+                                        {data.statements.pct}% (
+                                        {data.statements.total})
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div style={{ textAlign: 'right', marginTop: 12 }}>
+                            <button
+                                style={hideButtonStyle}
+                                onClick={this.handleRefresh.bind(this)}
+                            >
+                                Refresh
+                            </button>
                             <button
                                 style={hideButtonStyle}
                                 onClick={this.handleClose.bind(this)}

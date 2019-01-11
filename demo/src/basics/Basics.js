@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Page1 from './Page1';
 
 export default function Section1() {
     return (
         <div>
-            <h2>Section 1</h2>
+            <h2>React Basics</h2>
+            <p>
+                This is a section on React Basics.
+            </p>
             <ul>
                 <li>
-                    <Link to="/section1/page1">Page 1</Link>
+                    <Link to="/basics/comp">Component</Link>
                 </li>
                 <li>
                     <Link to="/">Back to Book</Link>

@@ -1,6 +1,6 @@
 {
   "name": "istanbul-coverage-display",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "repository": "git@github.com:vijayst/istanbul-coverage-display.git",

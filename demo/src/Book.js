@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 export default function Book() {
     return (
         <div>
-            <h1>Book</h1>
+            <h1>React Book</h1>
+            <p>As you read this book, coverage increases.</p>
             <ul>
                 <li>
-                    <Link to="/section1">Section 1</Link>
+                    <Link to="/coverage">Coverage</Link>
                 </li>
                 <li>
-                    <Link to="/coverage">Coverage</Link>
+                    <Link to="/basics">The Basics</Link>
                 </li>
             </ul>
         </div>

@@ -13,15 +13,12 @@ function getCoverage() {
   if (window.__coverage__ && libCoverage) {
     var map = libCoverage.createCoverageMap({});
     map.merge(window.__coverage__);
-    var fileCoverages = Object.keys(map.data).map(function (key) {
-      var slashes = key.split('/').length;
-
+    return Object.keys(map.data).map(function (key) {
       return {
         key: key,
         data: map.data[key].toSummary().data
       };
     });
-    return fileCoverages;
   }
 
   return null;
@@ -173,6 +170,11 @@ function (_Component) {
   }
 
   _createClass(Summary, [{
+    key: "handleRefresh",
+    value: function handleRefresh() {
+      this.refresh();
+    }
+  }, {
     key: "handleClose",
     value: function handleClose() {
       this.setState({
@@ -182,6 +184,11 @@ function (_Component) {
   }, {
     key: "handleShow",
     value: function handleShow() {
+      this.refresh();
+    }
+  }, {
+    key: "refresh",
+    value: function refresh() {
       var fileCoverages = getCoverage();
 
       if (fileCoverages) {
@@ -240,7 +247,9 @@ function (_Component) {
         zIndex: 10000
       });
       var hideButtonStyle = Object.assign({}, BaseButtonStyle, {
-        backgroundColor: 'rgba(0,0,0,.24)'
+        backgroundColor: 'rgba(0,0,0,.24)',
+        marginLeft: 16,
+        width: 90
       });
       return React__default.createElement("div", null, data.branches ? React__default.createElement("div", {
         style: Object.assign({
@@ -267,6 +276,9 @@ function (_Component) {
           marginTop: 12
         }
       }, React__default.createElement("button", {
+        style: hideButtonStyle,
+        onClick: this.handleRefresh.bind(this)
+      }, "Refresh"), React__default.createElement("button", {
         style: hideButtonStyle,
         onClick: this.handleClose.bind(this)
       }, "Close"))) : null, React__default.createElement("button", {

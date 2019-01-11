@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import Section1 from './section1/Section1';
-import Page1 from './section1/Page1';
+import Basics from './basics/Basics';
+import Comp from './basics/Comp';
 import Book from './Book';
 import Coverage from './Coverage';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -13,8 +13,8 @@ function Index() {
             <Fragment>
                 <Switch>
                     <Route path="/coverage" component={Coverage} />
-                    <Route path="/section1/page1" component={Page1} />
-                    <Route path="/section1" component={Section1} />
+                    <Route path="/basics/comp" component={Comp} />
+                    <Route path="/basics" component={Basics} />
                     <Route path="/" component={Book} />
                 </Switch>
                 <CoverageSummary />
