@@ -2,7 +2,7 @@
   "name": "istanbuldemo",
   "version": "1.0.0",
   "main": "index.js",
-  "homepage": "https://vijayst.github.io/istanbul-coverage-display",
+  "homepage": "https://reactbook.netlify.com",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.3",

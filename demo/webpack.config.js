@@ -11,8 +11,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve('dist'),
-        filename: 'bundle.js',
-        publicPath: process.env.NODE_ENV === 'production' ? '/istanbul-coverage-display/' : '/'
+        filename: 'bundle.js'
     },
     module: {
         rules: [
