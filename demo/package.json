@@ -2,6 +2,7 @@
   "name": "istanbuldemo",
   "version": "1.0.0",
   "main": "index.js",
+  "homepage": "https://vijayst.github.io/istanbul-coverage-display",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -10,17 +11,17 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "html-webpack-plugin": "^3.2.0",
-    "nyc": "^13.1.0",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
-    "start": "webpack-dev-server --history-api-fallback",
-    "build": "webpack",
-    "report": "nyc report"
+    "start": "NODE_ENV=development webpack-dev-server --history-api-fallback",
+    "build": "NODE_ENV=production webpack -p",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",
     "react-router-dom": "^4.3.1"

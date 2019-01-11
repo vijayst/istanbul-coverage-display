@@ -33,8 +33,6 @@ import { getCoverage } from 'istanbul-coverage-display';
 ```
 
 ## More info
-There is a [demo project](https://github.com/vijayst/istanbuldemo) for this package. And there is a [blog post](https://vijayt.com/post/code-coverage-of-manual-testing-using-istanbul/) with more details about why we need this.
-
-Screenshot of the component display coverage report:
+There is a [demo project](https://vijayst.github.io/istanbul-coverage-display/) for this package. And there is a [blog post](https://vijayt.com/post/code-coverage-of-manual-testing-using-istanbul/) with more details about why we need this.
 
 

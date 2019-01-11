@@ -7,11 +7,12 @@ const htmlWebpackPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = {
+    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     entry: './src/index.js',
     output: {
         path: path.resolve('dist'),
         filename: 'bundle.js',
-        publicPath: '/'
+        publicPath: process.env.NODE_ENV === 'production' ? '/istanbul-coverage-display/' : '/'
     },
     module: {
         rules: [
