@@ -13,6 +13,9 @@ export default function Book() {
                 <li>
                     <Link to="/basics">The Basics</Link>
                 </li>
+                <li>
+                    <Link to="/comp">Class Component</Link>
+                </li>
             </ul>
         </div>
     );

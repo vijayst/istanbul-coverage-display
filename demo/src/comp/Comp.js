@@ -1,25 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Basics() {
+export default function Comp() {
     return (
         <div>
-            <h2>React Basics</h2>
+            <h2>Class Component</h2>
             <p>
-                This is a section on React Basics.
+                This is a section on Class Components.
             </p>
             <ul>
                 <li>
-                    <Link to="/basics/comp">Component</Link>
+                    <Link to="/comp/class">Class</Link>
                 </li>
                 <li>
-                    <Link to="/basics/props">Props</Link>
+                    <Link to="/comp/cons">Constructor</Link>
                 </li>
                 <li>
-                    <Link to="/basics/state">State</Link>
+                    <Link to="/comp/gdsfp">GetDerivedStateFromProps</Link>
                 </li>
                 <li>
-                    <Link to="/basics/render">Render</Link>
+                    <Link to="/comp/render">Render</Link>
                 </li>
                 <li>
                     <Link to="/">Back to Book</Link>
