@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Arrow from './Arrow';
 import PropTypes from 'prop-types';
+import './Dropdown.scss';
 
 export default class Dropdown extends Component {
     
@@ -8,9 +9,9 @@ export default class Dropdown extends Component {
         const { text, expanded, onToggle } = this.props;
 
         return (
-            <span style={{ display: 'inline-flex', alignItems: 'center' }} onClick={onToggle}>
-                <Arrow width="16" height="16" down={expanded} />
-                <span style={{ marginLeft: 8 }}>{text}</span>
+            <span className="dropdown" onClick={onToggle}>
+                <Arrow className="dropdown__arrow" down={expanded} />
+                <span className="dropdown__text">{text}</span>
             </span>
         );
     }

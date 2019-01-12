@@ -1,0 +1,13 @@
+.dropdown {
+    display: inline-flex;
+    align-items: center;
+
+    &__arrow {
+        width: 10px;
+        height: 10px;
+    }
+
+    &__text {
+        margin-left: 8px;
+    }
+}

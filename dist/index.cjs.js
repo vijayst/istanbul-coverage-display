@@ -368,19 +368,17 @@ Summary.defaultProps = {
 };
 
 function Arrow(_ref) {
-  var width = _ref.width,
-      height = _ref.height,
+  var className = _ref.className,
       down = _ref.down;
   var deg = down ? 180 : 0;
   return React__default.createElement("svg", {
+    className: className,
     viewBox: "0 0 32 32",
     fill: "currentColor",
     style: {
       transform: "rotate(".concat(deg, "deg)"),
       transition: 'transform 200ms ease-in-out'
-    },
-    width: width,
-    height: height
+    }
   }, React__default.createElement("path", {
     d: "M18.221 7.206l9.585 9.585a2.265 2.265 0 0 1 0 3.195l-.8.801a2.266 2.266 0 0 1-3.194 0l-7.315-7.315-7.315 7.315a2.266 2.266 0 0 1-3.194 0l-.8-.801a2.265 2.265 0 0 1 0-3.195l9.587-9.585a2.24 2.24 0 0 1 1.723-.647 2.247 2.247 0 0 1 1.723.647z",
     fill: "#515151"
@@ -409,19 +407,13 @@ function (_Component) {
           expanded = _this$props.expanded,
           onToggle = _this$props.onToggle;
       return React__default.createElement("span", {
-        style: {
-          display: 'inline-flex',
-          alignItems: 'center'
-        },
+        className: "dropdown",
         onClick: onToggle
       }, React__default.createElement(Arrow, {
-        width: "16",
-        height: "16",
+        className: "dropdown__arrow",
         down: expanded
       }), React__default.createElement("span", {
-        style: {
-          marginLeft: 8
-        }
+        className: "dropdown__text"
       }, text));
     }
   }]);

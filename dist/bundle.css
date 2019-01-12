@@ -12,3 +12,12 @@
   .icd-table td:nth-child(5),
   .icd-table td:nth-child(6) {
     text-align: center; }
+
+.dropdown {
+  display: inline-flex;
+  align-items: center; }
+  .dropdown__arrow {
+    width: 10px;
+    height: 10px; }
+  .dropdown__text {
+    margin-left: 8px; }
