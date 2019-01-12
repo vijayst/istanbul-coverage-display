@@ -21,3 +21,41 @@
     height: 10px; }
   .dropdown__text {
     margin-left: 8px; }
+
+.icd-summary__popover {
+  padding: 20px;
+  background-color: #eee;
+  position: fixed;
+  z-index: 10000;
+  bottom: 30px;
+  left: 0; }
+
+.icd-summary__show {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #ff420e;
+  z-index: 10000;
+  color: white;
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 0;
+  border-radius: 3px; }
+
+.icd-summary__nav {
+  margin-top: 16px;
+  text-align: center; }
+
+.icd-summary__button {
+  font-size: 12px;
+  background-color: #89da59;
+  width: 70px;
+  margin-right: 8px;
+  color: white;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 3px; }
+
+.icd-summary__table {
+  max-width: 320px;
+  font-size: 16px; }

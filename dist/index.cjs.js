@@ -182,15 +182,6 @@ function computeTotals(fileCoverages) {
   return data;
 }
 
-var BaseButtonStyle = {
-  color: 'white',
-  padding: '5px 10px',
-  fontSize: 16,
-  border: 0,
-  borderRadius: 3
-};
-var TablePadding = 30;
-
 var Summary =
 /*#__PURE__*/
 function (_Component) {
@@ -243,44 +234,6 @@ function (_Component) {
       }
     }
   }, {
-    key: "getPosition",
-    value: function getPosition() {
-      var padding = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-      var position = this.props.position;
-
-      switch (position) {
-        case 'topLeft':
-          return {
-            top: padding,
-            left: 0
-          };
-
-        case 'bottomLeft':
-          return {
-            bottom: padding,
-            left: 0
-          };
-
-        case 'topRight':
-          return {
-            top: padding,
-            right: 0
-          };
-
-        case 'bottomRight':
-          return {
-            bottom: padding,
-            right: 0
-          };
-
-        default:
-          return {
-            bottom: 0,
-            left: 0
-          };
-      }
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -289,26 +242,13 @@ function (_Component) {
       var _this$state = this.state,
           data = _this$state.data,
           showGuide = _this$state.showGuide;
-      var position = this.getPosition();
-      var showButtonStyle = Object.assign({}, BaseButtonStyle, position, {
-        position: 'fixed',
-        backgroundColor: 'red',
-        zIndex: 10000,
-        opacity: magic ? 0 : 1
-      });
-      var hideButtonStyle = Object.assign({}, BaseButtonStyle, {
-        backgroundColor: 'rgba(0,0,0,.24)',
-        marginLeft: 16,
-        width: 90
-      });
-      return React__default.createElement("div", null, data.branches ? React__default.createElement("div", {
-        style: Object.assign({
-          padding: 20,
-          backgroundColor: '#eee',
-          position: 'fixed',
-          zIndex: 10000
-        }, this.getPosition(TablePadding))
-      }, React__default.createElement("table", null, React__default.createElement("thead", null, React__default.createElement("tr", null, React__default.createElement("th", {
+      return React__default.createElement("div", {
+        className: "icd-summary"
+      }, data.branches ? React__default.createElement("div", {
+        className: "icd-summary__popover"
+      }, React__default.createElement("table", {
+        className: "icd-summary__table"
+      }, React__default.createElement("thead", null, React__default.createElement("tr", null, React__default.createElement("th", {
         width: "200"
       }), React__default.createElement("th", {
         width: "100"
@@ -321,36 +261,30 @@ function (_Component) {
       }, data.lines.pct, "% (", data.lines.total, ")")), React__default.createElement("tr", null, React__default.createElement("td", null, "Statement coverage:"), React__default.createElement("td", {
         align: "right"
       }, data.statements.pct, "% (", data.statements.total, ")")))), React__default.createElement("div", {
-        style: {
-          textAlign: 'right',
-          marginTop: 12
-        }
+        className: "icd-summary__nav"
       }, onNavigate ? React__default.createElement("button", {
-        style: hideButtonStyle,
+        className: "icd-summary__button",
         onClick: onNavigate
       }, "Details") : null, React__default.createElement("button", {
-        style: hideButtonStyle,
+        className: "icd-summary__button",
         onClick: this.handleRefresh.bind(this)
       }, "Refresh"), React__default.createElement("button", {
-        style: hideButtonStyle,
+        className: "icd-summary__button",
         onClick: this.handleClose.bind(this)
       }, "Close"))) : showGuide ? React__default.createElement("div", {
-        style: Object.assign({
-          padding: 20,
-          backgroundColor: '#eee',
-          position: 'fixed',
-          zIndex: 10000,
-          maxWidth: 400
-        }, this.getPosition(TablePadding))
+        className: "icd-summary__popover"
       }, React__default.createElement("p", null, "Please install babel-plugin-istanbul as devDependency. Add the plugin to .babelrc file or webpack config for instrumenting your code."), React__default.createElement("div", {
         style: {
           textAlign: 'right'
         }
       }, React__default.createElement("button", {
-        style: hideButtonStyle,
+        className: "icd-summary__button",
         onClick: this.handleClose.bind(this)
       }, "Close"))) : null, React__default.createElement("button", {
-        style: showButtonStyle,
+        className: "icd-summary__show",
+        style: {
+          opacity: magic ? 0 : 1
+        },
         onClick: this.handleShow.bind(this)
       }, "Show coverage"));
     }
@@ -359,12 +293,8 @@ function (_Component) {
   return Summary;
 }(React.Component);
 Summary.propTypes = {
-  position: PropTypes.oneOf(['bottomLeft', 'topLeft', 'bottomRight', 'topRight']),
   magic: PropTypes.bool,
   onNavigate: PropTypes.func
-};
-Summary.defaultProps = {
-  position: 'bottomLeft'
 };
 
 function Arrow(_ref) {

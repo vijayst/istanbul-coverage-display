@@ -11,6 +11,12 @@ npm install istanbul-coverage-display
 It has a peer dependency of React 16. This component should be part of the test build only. In the test build, you should be using `babel-plugin-istanbul`
 to instrument the source code. This component has a peer (indirect) dependency on `istanbul-lib-coverage` installed by `babel-plugin-istanbul`.
 
+There is a bundle.scss which provides default styles.
+
+```
+import 'istanbul-coverage-display/dist/bundle.scss'
+```
+
 ## Summary view
 
 ```
@@ -18,11 +24,6 @@ import { CoverageSummary } from 'istanbul-coverage-display';
 ```
 
 All props are optional.
-
-### position
-
-This component adds a button to one of the four corner of the browser window to show coverage report. The position prop accepts four values:
-one of bottomLeft, topLeft, bottomRight, topRight. By default, the button is at the bottomLeft.
 
 ### magic
 

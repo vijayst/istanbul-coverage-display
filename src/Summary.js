@@ -2,16 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import getCoverage from './getCoverage';
 import computeTotals from './computeTotals';
-
-const BaseButtonStyle = {
-    color: 'white',
-    padding: '5px 10px',
-    fontSize: 16,
-    border: 0,
-    borderRadius: 3
-};
-
-const TablePadding = 30;
+import './Summary.scss';
 
 export default class Summary extends Component {
     constructor() {
@@ -41,69 +32,15 @@ export default class Summary extends Component {
         }
     }
 
-    getPosition(padding = 0) {
-        const { position } = this.props;
-        switch (position) {
-            case 'topLeft':
-                return {
-                    top: padding,
-                    left: 0
-                };
-            case 'bottomLeft':
-                return {
-                    bottom: padding,
-                    left: 0
-                };
-            case 'topRight':
-                return {
-                    top: padding,
-                    right: 0
-                };
-            case 'bottomRight':
-                return {
-                    bottom: padding,
-                    right: 0
-                };
-            default:
-                return {
-                    bottom: 0,
-                    left: 0
-                };
-        }
-    }
-
     render() {
         const { magic, onNavigate } = this.props;
         const { data, showGuide } = this.state;
-        const position = this.getPosition();
-        const showButtonStyle = Object.assign({}, BaseButtonStyle, position, {
-            position: 'fixed',
-            backgroundColor: 'red',
-            zIndex: 10000,
-            opacity: magic ? 0 : 1
-        });
-
-        const hideButtonStyle = Object.assign({}, BaseButtonStyle, {
-            backgroundColor: 'rgba(0,0,0,.24)',
-            marginLeft: 16,
-            width: 90
-        });
 
         return (
-            <div>
+            <div className="icd-summary">
                 {data.branches ? (
-                    <div
-                        style={Object.assign(
-                            {
-                                padding: 20,
-                                backgroundColor: '#eee',
-                                position: 'fixed',
-                                zIndex: 10000
-                            },
-                            this.getPosition(TablePadding)
-                        )}
-                    >
-                        <table>
+                    <div className="icd-summary__popover">
+                        <table className="icd-summary__table">
                             <thead>
                                 <tr>
                                     <th width="200" />
@@ -140,10 +77,10 @@ export default class Summary extends Component {
                                 </tr>
                             </tbody>
                         </table>
-                        <div style={{ textAlign: 'right', marginTop: 12 }}>
+                        <div className="icd-summary__nav">
                             {onNavigate ? (
                                 <button
-                                    style={hideButtonStyle}
+                                    className="icd-summary__button"
                                     onClick={onNavigate}
                                 >
                                     Details
@@ -151,13 +88,13 @@ export default class Summary extends Component {
                             ) : null}
 
                             <button
-                                style={hideButtonStyle}
+                                className="icd-summary__button"
                                 onClick={this.handleRefresh.bind(this)}
                             >
                                 Refresh
                             </button>
                             <button
-                                style={hideButtonStyle}
+                                className="icd-summary__button"
                                 onClick={this.handleClose.bind(this)}
                             >
                                 Close
@@ -165,18 +102,7 @@ export default class Summary extends Component {
                         </div>
                     </div>
                 ) : showGuide ? (
-                    <div
-                        style={Object.assign(
-                            {
-                                padding: 20,
-                                backgroundColor: '#eee',
-                                position: 'fixed',
-                                zIndex: 10000,
-                                maxWidth: 400
-                            },
-                            this.getPosition(TablePadding)
-                        )}
-                    >
+                    <div className="icd-summary__popover">
                         <p>
                             Please install babel-plugin-istanbul as
                             devDependency. Add the plugin to .babelrc file or
@@ -184,7 +110,7 @@ export default class Summary extends Component {
                         </p>
                         <div style={{ textAlign: 'right' }}>
                             <button
-                                style={hideButtonStyle}
+                                className="icd-summary__button"
                                 onClick={this.handleClose.bind(this)}
                             >
                                 Close
@@ -193,7 +119,8 @@ export default class Summary extends Component {
                     </div>
                 ) : null}
                 <button
-                    style={showButtonStyle}
+                    className="icd-summary__show"
+                    style={{ opacity: magic ? 0 : 1 }}
                     onClick={this.handleShow.bind(this)}
                 >
                     Show coverage
@@ -204,16 +131,6 @@ export default class Summary extends Component {
 }
 
 Summary.propTypes = {
-    position: PropTypes.oneOf([
-        'bottomLeft',
-        'topLeft',
-        'bottomRight',
-        'topRight'
-    ]),
     magic: PropTypes.bool,
     onNavigate: PropTypes.func
-};
-
-Summary.defaultProps = {
-    position: 'bottomLeft'
 };
