@@ -178,7 +178,8 @@ function (_Component) {
     key: "handleClose",
     value: function handleClose() {
       this.setState({
-        data: {}
+        data: {},
+        showGuide: false
       });
     }
   }, {
@@ -195,6 +196,10 @@ function (_Component) {
         var data = computeTotals(fileCoverages);
         this.setState({
           data: data
+        });
+      } else {
+        this.setState({
+          showGuide: true
         });
       }
     }
@@ -240,7 +245,9 @@ function (_Component) {
     key: "render",
     value: function render() {
       var magic = this.props.magic;
-      var data = this.state.data;
+      var _this$state = this.state,
+          data = _this$state.data,
+          showGuide = _this$state.showGuide;
       var position = this.getPosition();
       var showButtonStyle = Object.assign({}, BaseButtonStyle, position, {
         position: 'fixed',
@@ -281,6 +288,21 @@ function (_Component) {
         style: hideButtonStyle,
         onClick: this.handleRefresh.bind(this)
       }, "Refresh"), React__default.createElement("button", {
+        style: hideButtonStyle,
+        onClick: this.handleClose.bind(this)
+      }, "Close"))) : showGuide ? React__default.createElement("div", {
+        style: Object.assign({
+          padding: 20,
+          backgroundColor: '#eee',
+          position: 'fixed',
+          zIndex: 10000,
+          maxWidth: 400
+        }, this.getPosition(TablePadding))
+      }, React__default.createElement("p", null, "Please install babel-plugin-istanbul as devDependency. Add the plugin to .babelrc file or webpack config for instrumenting your code."), React__default.createElement("div", {
+        style: {
+          textAlign: 'right'
+        }
+      }, React__default.createElement("button", {
         style: hideButtonStyle,
         onClick: this.handleClose.bind(this)
       }, "Close"))) : null, React__default.createElement("button", {

@@ -39,7 +39,7 @@ function Index() {
                     <Route path="/comp" component={Comp2} />
                     <Route path="/" component={Book} />
                 </Switch>
-                <CoverageSummary magic />
+                <CoverageSummary />
             </Fragment>
         </BrowserRouter>
     );

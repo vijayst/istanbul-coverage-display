@@ -24,7 +24,7 @@ export default class Summary extends Component {
     }
 
     handleClose() {
-        this.setState({ data: {} });
+        this.setState({ data: {}, showGuide: false });
     }
 
     handleShow() {
@@ -36,6 +36,8 @@ export default class Summary extends Component {
         if (fileCoverages) {
             const data = computeTotals(fileCoverages);
             this.setState({ data });
+        } else {
+            this.setState({ showGuide: true });
         }
     }
 
@@ -72,7 +74,7 @@ export default class Summary extends Component {
 
     render() {
         const { magic } = this.props;
-        const { data } = this.state;
+        const { data, showGuide } = this.state;
         const position = this.getPosition();
         const showButtonStyle = Object.assign({}, BaseButtonStyle, position, {
             position: 'fixed',
@@ -145,6 +147,33 @@ export default class Summary extends Component {
                             >
                                 Refresh
                             </button>
+                            <button
+                                style={hideButtonStyle}
+                                onClick={this.handleClose.bind(this)}
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                ) : showGuide ? (
+                    <div
+                        style={Object.assign(
+                            {
+                                padding: 20,
+                                backgroundColor: '#eee',
+                                position: 'fixed',
+                                zIndex: 10000,
+                                maxWidth: 400
+                            },
+                            this.getPosition(TablePadding)
+                        )}
+                    >
+                        <p>
+                            Please install babel-plugin-istanbul as
+                            devDependency. Add the plugin to .babelrc file or
+                            webpack config for instrumenting your code.
+                        </p>
+                        <div style={{ textAlign: 'right' }}>
                             <button
                                 style={hideButtonStyle}
                                 onClick={this.handleClose.bind(this)}
