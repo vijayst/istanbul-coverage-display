@@ -73,7 +73,7 @@ export default class Summary extends Component {
     }
 
     render() {
-        const { magic } = this.props;
+        const { magic, onNavigate } = this.props;
         const { data, showGuide } = this.state;
         const position = this.getPosition();
         const showButtonStyle = Object.assign({}, BaseButtonStyle, position, {
@@ -141,6 +141,15 @@ export default class Summary extends Component {
                             </tbody>
                         </table>
                         <div style={{ textAlign: 'right', marginTop: 12 }}>
+                            {onNavigate ? (
+                                <button
+                                    style={hideButtonStyle}
+                                    onClick={onNavigate}
+                                >
+                                    Details
+                                </button>
+                            ) : null}
+
                             <button
                                 style={hideButtonStyle}
                                 onClick={this.handleRefresh.bind(this)}
@@ -201,7 +210,8 @@ Summary.propTypes = {
         'bottomRight',
         'topRight'
     ]),
-    magic: PropTypes.bool
+    magic: PropTypes.bool,
+    onNavigate: PropTypes.func
 };
 
 Summary.defaultProps = {

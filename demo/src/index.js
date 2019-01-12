@@ -7,12 +7,13 @@ import State from './basics/State';
 import Render from './basics/Render';
 import Book from './Book';
 import Coverage from './Coverage';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import GDSFP from './comp/GDSFP';
 import Constructor from './comp/Constructor';
 import Class from './comp/Class';
 import Render2 from './comp/Render';
 import Comp2 from './comp/Comp';
+import { createBrowserHistory } from 'history';
 
 let CoverageSummary;
 if (process.env.NODE_ENV === 'production') {
@@ -21,9 +22,15 @@ if (process.env.NODE_ENV === 'production') {
     CoverageSummary = require('../../dist/index.esm').CoverageSummary;
 }
 
+const history = createBrowserHistory();
+
+function handleNavigate() {
+    history.push('/coverage');
+}
+
 function Index() {
     return (
-        <BrowserRouter>
+        <Router history={history}>
             <Fragment>
                 <Switch>
                     <Route path="/coverage" component={Coverage} />
@@ -39,9 +46,9 @@ function Index() {
                     <Route path="/comp" component={Comp2} />
                     <Route path="/" component={Book} />
                 </Switch>
-                <CoverageSummary />
+                <CoverageSummary onNavigate={handleNavigate} />
             </Fragment>
-        </BrowserRouter>
+        </Router>
     );
 }
 

@@ -238,7 +238,9 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var magic = this.props.magic;
+      var _this$props = this.props,
+          magic = _this$props.magic,
+          onNavigate = _this$props.onNavigate;
       var _this$state = this.state,
           data = _this$state.data,
           showGuide = _this$state.showGuide;
@@ -278,7 +280,10 @@ function (_Component) {
           textAlign: 'right',
           marginTop: 12
         }
-      }, React.createElement("button", {
+      }, onNavigate ? React.createElement("button", {
+        style: hideButtonStyle,
+        onClick: onNavigate
+      }, "Details") : null, React.createElement("button", {
         style: hideButtonStyle,
         onClick: this.handleRefresh.bind(this)
       }, "Refresh"), React.createElement("button", {
@@ -310,7 +315,8 @@ function (_Component) {
 }(Component);
 Summary.propTypes = {
   position: PropTypes.oneOf(['bottomLeft', 'topLeft', 'bottomRight', 'topRight']),
-  magic: PropTypes.bool
+  magic: PropTypes.bool,
+  onNavigate: PropTypes.func
 };
 Summary.defaultProps = {
   position: 'bottomLeft'
