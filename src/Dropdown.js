@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
 import Arrow from './Arrow';
+import PropTypes from 'prop-types';
 
 export default class Dropdown extends Component {
-    constructor() {
-        super();
-        this.state = { down: true };
-    }
     
-    handleToggle() {
-        this.setState({ down: !this.state.down });
-    }
-
     render() {
-        const { down } = this.state;
+        const { text, expanded, onToggle } = this.props;
 
         return (
-            <span style={{ display: 'inline-flex', alignItems: 'center' }} onClick={this.handleToggle.bind(this)}>
-                <Arrow width="16" height="16" down={down} />
-                <span style={{ marginLeft: 8 }}>Heloo</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center' }} onClick={onToggle}>
+                <Arrow width="16" height="16" down={expanded} />
+                <span style={{ marginLeft: 8 }}>{text}</span>
             </span>
         );
     }
 }
+
+Dropdown.propTypes = {
+    text: PropTypes.string,
+    expanded: PropTypes.bool,
+    onToggle: PropTypes.func
+};

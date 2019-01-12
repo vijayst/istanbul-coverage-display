@@ -3,43 +3,6 @@ import getCoverage from './getCoverage';
 import computeTotals from './computeTotals';
 import TreeTable from './TreeTable';
 
-const columns = [
-    {
-        title: 'Folder / File',
-        name: 'name',
-        width: '100px'
-    },
-    {
-        title: 'Path',
-        name: 'path',
-        width: '200px'
-    },
-    {
-        title: 'Branches',
-        name: 'branchPerc',
-        textAlign: 'center',
-        width: '100px'
-    },
-    {
-        title: 'Functions',
-        name: 'functionPerc',
-        textAlign: 'center',
-        width: '100px'
-    },
-    {
-        title: 'Lines',
-        name: 'linePerc',
-        textAlign: 'center',
-        width: '100px'
-    },
-    {
-        title: 'Statements',
-        name: 'stmtPerc',
-        textAlign: 'center',
-        width: '100px'
-    }
-];
-
 export default class CoverageDetail extends Component {
     constructor() {
         super();
@@ -133,11 +96,7 @@ export default class CoverageDetail extends Component {
 
         return (
             <div>
-                {treeNodes.length ? (
-                    <TreeTable
-                        data={treeNodes}
-                    />
-                ) : null}
+                {treeNodes.length ? <TreeTable data={treeNodes} /> : null}
             </div>
         );
     }

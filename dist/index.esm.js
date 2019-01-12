@@ -1,6 +1,6 @@
 import libCoverage from 'istanbul-lib-coverage';
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 function getCoverage() {
   if (window.__coverage__ && libCoverage) {
@@ -54,22 +54,23 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    var ownKeys = Object.keys(source);
 
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
     }
 
-    return target;
-  };
+    ownKeys.forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    });
+  }
 
-  return _extends.apply(this, arguments);
+  return target;
 }
 
 function _inherits(subClass, superClass) {
@@ -117,6 +118,26 @@ function _possibleConstructorReturn(self, call) {
   }
 
   return _assertThisInitialized(self);
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+}
+
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
 }
 
 function getInitialSubData() {
@@ -339,20 +360,28 @@ Summary.defaultProps = {
   position: 'bottomLeft'
 };
 
-function Arrow(props) {
-  var deg = props.down ? 180 : 0;
-  return React.createElement("svg", _extends({
+function Arrow(_ref) {
+  var width = _ref.width,
+      height = _ref.height,
+      down = _ref.down;
+  var deg = down ? 180 : 0;
+  return React.createElement("svg", {
     viewBox: "0 0 32 32",
     fill: "currentColor",
     style: {
       transform: "rotate(".concat(deg, "deg)"),
       transition: 'transform 200ms ease-in-out'
-    }
-  }, props), React.createElement("path", {
+    },
+    width: width,
+    height: height
+  }, React.createElement("path", {
     d: "M18.221 7.206l9.585 9.585a2.265 2.265 0 0 1 0 3.195l-.8.801a2.266 2.266 0 0 1-3.194 0l-7.315-7.315-7.315 7.315a2.266 2.266 0 0 1-3.194 0l-.8-.801a2.265 2.265 0 0 1 0-3.195l9.587-9.585a2.24 2.24 0 0 1 1.723-.647 2.247 2.247 0 0 1 1.723.647z",
     fill: "#515151"
   }));
 }
+Arrow.propTypes = {
+  down: PropTypes.bool
+};
 
 var Dropdown =
 /*#__PURE__*/
@@ -360,67 +389,132 @@ function (_Component) {
   _inherits(Dropdown, _Component);
 
   function Dropdown() {
-    var _this;
-
     _classCallCheck(this, Dropdown);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
-    _this.state = {
-      down: true
-    };
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).apply(this, arguments));
   }
 
   _createClass(Dropdown, [{
-    key: "handleToggle",
-    value: function handleToggle() {
-      this.setState({
-        down: !this.state.down
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var down = this.state.down;
+      var _this$props = this.props,
+          text = _this$props.text,
+          expanded = _this$props.expanded,
+          onToggle = _this$props.onToggle;
       return React.createElement("span", {
         style: {
           display: 'inline-flex',
           alignItems: 'center'
         },
-        onClick: this.handleToggle.bind(this)
+        onClick: onToggle
       }, React.createElement(Arrow, {
         width: "16",
         height: "16",
-        down: down
+        down: expanded
       }), React.createElement("span", {
         style: {
           marginLeft: 8
         }
-      }, "Heloo"));
+      }, text));
     }
   }]);
 
   return Dropdown;
 }(Component);
+Dropdown.propTypes = {
+  text: PropTypes.string,
+  expanded: PropTypes.bool,
+  onToggle: PropTypes.func
+};
 
 var TreeTable =
 /*#__PURE__*/
 function (_Component) {
   _inherits(TreeTable, _Component);
 
-  function TreeTable() {
+  function TreeTable(props) {
+    var _this;
+
     _classCallCheck(this, TreeTable);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TreeTable).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TreeTable).call(this));
+    var items = [];
+    var root = props.data.find(function (d) {
+      return d.id === 1;
+    });
+
+    if (root) {
+      items.push({
+        node: root,
+        expanded: true
+      });
+      var children = props.data.filter(function (d) {
+        return d.parentId === 1;
+      });
+      children.forEach(function (c) {
+        items.push({
+          node: c,
+          expanded: false
+        });
+      });
+    }
+
+    _this.state = {
+      items: items
+    };
+    return _this;
   }
 
   _createClass(TreeTable, [{
+    key: "handleToggle",
+    value: function handleToggle(id) {
+      var items = this.state.items;
+      var data = this.props.data;
+      items = items.slice();
+      var index = items.findIndex(function (i) {
+        return i.node.id === id;
+      });
+      var item = items[index];
+
+      if (item.expanded) {
+        var length = items.filter(function (i) {
+          return i.node.parentId === id;
+        }).length;
+        items.splice(index + 1, length);
+        items[index] = _objectSpread({}, items[index], {
+          expanded: false
+        });
+        this.setState({
+          items: items
+        });
+      } else {
+        var _items;
+
+        var children = data.filter(function (d) {
+          return d.parentId === id;
+        }).map(function (d) {
+          return {
+            node: d,
+            expanded: false
+          };
+        });
+
+        (_items = items).splice.apply(_items, [index + 1, 0].concat(_toConsumableArray(children)));
+
+        items[index] = _objectSpread({}, items[index], {
+          expanded: true
+        });
+        this.setState({
+          items: items
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      var data = this.props.data;
-      var root = data.find(function (d) {
-        return d.id === 1;
-      });
+      var _this2 = this;
+
+      var items = this.state.items;
       return React.createElement("table", {
         className: "icd-table",
         border: "1",
@@ -438,31 +532,39 @@ function (_Component) {
         width: "75"
       }, "Lines"), React.createElement("th", {
         width: "75"
-      }, "Statements"))), React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", {
-        style: {
-          paddingLeft: 16
-        }
-      }, React.createElement(Dropdown, null)), React.createElement("td", {
-        style: {
-          paddingLeft: 16
-        }
-      }, root.path), React.createElement("td", {
-        style: {
-          textAlign: 'center'
-        }
-      }, root.data.branches.pct, "% (", root.data.branches.total, ")"), React.createElement("td", {
-        style: {
-          textAlign: 'center'
-        }
-      }, root.data.functions.pct, "% (", root.data.functions.total, ")"), React.createElement("td", {
-        style: {
-          textAlign: 'center'
-        }
-      }, root.data.lines.pct, "% (", root.data.lines.total, ")"), React.createElement("td", {
-        style: {
-          textAlign: 'center'
-        }
-      }, root.data.statements.pct, "% (", root.data.statements.total, ")"))));
+      }, "Statements"))), React.createElement("tbody", null, items.map(function (item) {
+        return React.createElement("tr", {
+          key: item.node.id
+        }, React.createElement("td", {
+          style: {
+            paddingLeft: 16 * (item.node.level + 1)
+          }
+        }, item.node.leaf ? item.node.name : React.createElement(Dropdown, {
+          text: item.node.name,
+          expanded: item.expanded,
+          onToggle: _this2.handleToggle.bind(_this2, item.node.id)
+        })), React.createElement("td", {
+          style: {
+            paddingLeft: 16
+          }
+        }, item.node.path), React.createElement("td", {
+          style: {
+            textAlign: 'center'
+          }
+        }, item.node.data.branches.pct, "% (", item.node.data.branches.total, ")"), React.createElement("td", {
+          style: {
+            textAlign: 'center'
+          }
+        }, item.node.data.functions.pct, "% (", item.node.data.functions.total, ")"), React.createElement("td", {
+          style: {
+            textAlign: 'center'
+          }
+        }, item.node.data.lines.pct, "% (", item.node.data.lines.total, ")"), React.createElement("td", {
+          style: {
+            textAlign: 'center'
+          }
+        }, item.node.data.statements.pct, "% (", item.node.data.statements.total, ")"));
+      })));
     }
   }]);
 
