@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import getCoverage from './getCoverage';
 import computeTotals from './computeTotals';
-import TableTree from 'react-table-tree';
+import TreeTable from './TreeTable';
 
 const columns = [
     {
@@ -134,11 +134,8 @@ export default class CoverageDetail extends Component {
         return (
             <div>
                 {treeNodes.length ? (
-                    <TableTree
-                        datasets={treeNodes}
-                        columns={columns}
-                        rootId={1}
-                        total={{ visible: true, name: 'Totals' }}
+                    <TreeTable
+                        data={treeNodes}
                     />
                 ) : null}
             </div>

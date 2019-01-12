@@ -1,7 +1,6 @@
 import libCoverage from 'istanbul-lib-coverage';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import TableTree from 'react-table-tree';
 
 function getCoverage() {
   if (window.__coverage__ && libCoverage) {
@@ -53,6 +52,24 @@ function _defineProperty(obj, key, value) {
   }
 
   return obj;
+}
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
 }
 
 function _inherits(subClass, superClass) {
@@ -322,35 +339,138 @@ Summary.defaultProps = {
   position: 'bottomLeft'
 };
 
-var columns = [{
-  title: 'Folder / File',
-  name: 'name',
-  width: '100px'
-}, {
-  title: 'Path',
-  name: 'path',
-  width: '200px'
-}, {
-  title: 'Branches',
-  name: 'branchPerc',
-  textAlign: 'center',
-  width: '100px'
-}, {
-  title: 'Functions',
-  name: 'functionPerc',
-  textAlign: 'center',
-  width: '100px'
-}, {
-  title: 'Lines',
-  name: 'linePerc',
-  textAlign: 'center',
-  width: '100px'
-}, {
-  title: 'Statements',
-  name: 'stmtPerc',
-  textAlign: 'center',
-  width: '100px'
-}];
+function Arrow(props) {
+  var deg = props.down ? 180 : 0;
+  return React.createElement("svg", _extends({
+    viewBox: "0 0 32 32",
+    fill: "currentColor",
+    style: {
+      transform: "rotate(".concat(deg, "deg)"),
+      transition: 'transform 200ms ease-in-out'
+    }
+  }, props), React.createElement("path", {
+    d: "M18.221 7.206l9.585 9.585a2.265 2.265 0 0 1 0 3.195l-.8.801a2.266 2.266 0 0 1-3.194 0l-7.315-7.315-7.315 7.315a2.266 2.266 0 0 1-3.194 0l-.8-.801a2.265 2.265 0 0 1 0-3.195l9.587-9.585a2.24 2.24 0 0 1 1.723-.647 2.247 2.247 0 0 1 1.723.647z",
+    fill: "#515151"
+  }));
+}
+
+var Dropdown =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Dropdown, _Component);
+
+  function Dropdown() {
+    var _this;
+
+    _classCallCheck(this, Dropdown);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this));
+    _this.state = {
+      down: true
+    };
+    return _this;
+  }
+
+  _createClass(Dropdown, [{
+    key: "handleToggle",
+    value: function handleToggle() {
+      this.setState({
+        down: !this.state.down
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var down = this.state.down;
+      return React.createElement("span", {
+        style: {
+          display: 'inline-flex',
+          alignItems: 'center'
+        },
+        onClick: this.handleToggle.bind(this)
+      }, React.createElement(Arrow, {
+        width: "16",
+        height: "16",
+        down: down
+      }), React.createElement("span", {
+        style: {
+          marginLeft: 8
+        }
+      }, "Heloo"));
+    }
+  }]);
+
+  return Dropdown;
+}(Component);
+
+var TreeTable =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(TreeTable, _Component);
+
+  function TreeTable() {
+    _classCallCheck(this, TreeTable);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(TreeTable).apply(this, arguments));
+  }
+
+  _createClass(TreeTable, [{
+    key: "render",
+    value: function render() {
+      var data = this.props.data;
+      var root = data.find(function (d) {
+        return d.id === 1;
+      });
+      return React.createElement("table", {
+        className: "icd-table",
+        border: "1",
+        cellSpacing: "0",
+        cellPadding: "8"
+      }, React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", {
+        width: "300"
+      }, "Folder / File"), React.createElement("th", {
+        width: "300"
+      }, "Path"), React.createElement("th", {
+        width: "75"
+      }, "Branches"), React.createElement("th", {
+        width: "75"
+      }, "Functions"), React.createElement("th", {
+        width: "75"
+      }, "Lines"), React.createElement("th", {
+        width: "75"
+      }, "Statements"))), React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", {
+        style: {
+          paddingLeft: 16
+        }
+      }, React.createElement(Dropdown, null)), React.createElement("td", {
+        style: {
+          paddingLeft: 16
+        }
+      }, root.path), React.createElement("td", {
+        style: {
+          textAlign: 'center'
+        }
+      }, root.data.branches.pct, "% (", root.data.branches.total, ")"), React.createElement("td", {
+        style: {
+          textAlign: 'center'
+        }
+      }, root.data.functions.pct, "% (", root.data.functions.total, ")"), React.createElement("td", {
+        style: {
+          textAlign: 'center'
+        }
+      }, root.data.lines.pct, "% (", root.data.lines.total, ")"), React.createElement("td", {
+        style: {
+          textAlign: 'center'
+        }
+      }, root.data.statements.pct, "% (", root.data.statements.total, ")"))));
+    }
+  }]);
+
+  return TreeTable;
+}(Component);
+TreeTable.propTypes = {
+  data: PropTypes.array
+};
 
 var CoverageDetail =
 /*#__PURE__*/
@@ -461,14 +581,8 @@ function (_Component) {
     key: "render",
     value: function render() {
       var treeNodes = this.state.treeNodes;
-      return React.createElement("div", null, treeNodes.length ? React.createElement(TableTree, {
-        datasets: treeNodes,
-        columns: columns,
-        rootId: 1,
-        total: {
-          visible: true,
-          name: 'Totals'
-        }
+      return React.createElement("div", null, treeNodes.length ? React.createElement(TreeTable, {
+        data: treeNodes
       }) : null);
     }
   }]);
