@@ -3116,10 +3116,10 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
-istanbul-coverage-display@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/istanbul-coverage-display/-/istanbul-coverage-display-2.0.2.tgz#bf953dbd28ad6b2abf12a213c5c732eaae310d05"
-  integrity sha512-Z3m/lOO01CW0ZLv6rMSU9026s+ltAWGDNLF1goJzoz4q8lNHRoWrSMqf94+cH6xLPCXwBQ10ssm/JOLwm+pXNQ==
+istanbul-coverage-display@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/istanbul-coverage-display/-/istanbul-coverage-display-2.1.0.tgz#ccaea133da9befae2903cf8729bca8776c92314f"
+  integrity sha512-bU5YcbnwfByqVN/Ltj0x9ekOwLclDuOIqc/SF572c/FMKBoT7mp80BK7Vh+F0iS0Qck1zQGc/OpQQmIoJyOb2w==
   dependencies:
     react-table-tree "^1.2.0"
 
