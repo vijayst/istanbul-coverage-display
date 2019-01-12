@@ -1406,11 +1406,6 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.6:
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
-  integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
-
 clean-css@4.2.x:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.2.1.tgz#2d411ef76b8569b6d0c84068dabe85b0aa5e5c17"
@@ -3116,12 +3111,10 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
-istanbul-coverage-display@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/istanbul-coverage-display/-/istanbul-coverage-display-2.1.0.tgz#ccaea133da9befae2903cf8729bca8776c92314f"
-  integrity sha512-bU5YcbnwfByqVN/Ltj0x9ekOwLclDuOIqc/SF572c/FMKBoT7mp80BK7Vh+F0iS0Qck1zQGc/OpQQmIoJyOb2w==
-  dependencies:
-    react-table-tree "^1.2.0"
+istanbul-coverage-display@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/istanbul-coverage-display/-/istanbul-coverage-display-2.2.0.tgz#0b1510467bbc4c42785aebf9520e75687d6a0331"
+  integrity sha512-Go0BPyRK7QFMtEaHTM0+KDUOJ0gs8tFT9nLuDmlL6tT5hiMm05aINAaNx7V8IDP55AM/Dh/tiGwtJEJkvPCUIA==
 
 istanbul-lib-coverage@^2.0.1:
   version "2.0.1"
@@ -3381,11 +3374,6 @@ mem@^4.0.0:
     map-age-cleaner "^0.1.1"
     mimic-fn "^1.0.0"
     p-is-promise "^1.1.0"
-
-memoize-one@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-4.1.0.tgz#a2387c58c03fff27ca390c31b764a79addf3f906"
-  integrity sha512-2GApq0yI/b22J2j9rhbrAlsHb0Qcz+7yWxeLG8h+95sl1XPUgeLimQSOdur4Vw7cUhrBHwaUZxWFZueojqNRzA==
 
 memory-fs@^0.4.0, memory-fs@~0.4.1:
   version "0.4.1"
@@ -4310,14 +4298,6 @@ react-router@^4.3.1:
     path-to-regexp "^1.7.0"
     prop-types "^15.6.1"
     warning "^4.0.1"
-
-react-table-tree@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-table-tree/-/react-table-tree-1.2.0.tgz#76e3b7af79419b18d581b4e7cdac3ed60c91f534"
-  integrity sha512-NVv9gVKETBq3SwEag46i8E18yT9Sp1o+CRt8kEKMSwtvgVFZguwbrs6FluHyegxdHWQIRzpAAUfmCSdxclVDuA==
-  dependencies:
-    classnames "^2.2.6"
-    memoize-one "^4.0.0"
 
 react@^16.7.0-alpha.2:
   version "16.7.0"
