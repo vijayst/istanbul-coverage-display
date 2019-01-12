@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dropdown from './Dropdown';
+import './TreeTable.scss';
 
 export default class TreeTable extends Component {
     constructor(props) {
@@ -68,20 +69,15 @@ export default class TreeTable extends Component {
     render() {
         const { items } = this.state;
         return (
-            <table
-                className="icd-table"
-                border="1"
-                cellSpacing="0"
-                cellPadding="8"
-            >
+            <table className="icd-table">
                 <thead>
                     <tr>
                         <th width="300">Folder / File</th>
                         <th width="300">Path</th>
-                        <th width="75">Branches</th>
-                        <th width="75">Functions</th>
-                        <th width="75">Lines</th>
-                        <th width="75">Statements</th>
+                        <th width="100">Branches</th>
+                        <th width="100">Functions</th>
+                        <th width="100">Lines</th>
+                        <th width="100">Statements</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -108,19 +104,19 @@ export default class TreeTable extends Component {
                             <td style={{ paddingLeft: 16 }}>
                                 {item.node.path}
                             </td>
-                            <td style={{ textAlign: 'center' }}>
+                            <td>
                                 {item.node.data.branches.pct}% (
                                 {item.node.data.branches.total})
                             </td>
-                            <td style={{ textAlign: 'center' }}>
+                            <td>
                                 {item.node.data.functions.pct}% (
                                 {item.node.data.functions.total})
                             </td>
-                            <td style={{ textAlign: 'center' }}>
+                            <td>
                                 {item.node.data.lines.pct}% (
                                 {item.node.data.lines.total})
                             </td>
-                            <td style={{ textAlign: 'center' }}>
+                            <td>
                                 {item.node.data.statements.pct}% (
                                 {item.node.data.statements.total})
                             </td>

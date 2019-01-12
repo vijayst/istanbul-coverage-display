@@ -538,22 +538,19 @@ function (_Component) {
 
       var items = this.state.items;
       return React__default.createElement("table", {
-        className: "icd-table",
-        border: "1",
-        cellSpacing: "0",
-        cellPadding: "8"
+        className: "icd-table"
       }, React__default.createElement("thead", null, React__default.createElement("tr", null, React__default.createElement("th", {
         width: "300"
       }, "Folder / File"), React__default.createElement("th", {
         width: "300"
       }, "Path"), React__default.createElement("th", {
-        width: "75"
+        width: "100"
       }, "Branches"), React__default.createElement("th", {
-        width: "75"
+        width: "100"
       }, "Functions"), React__default.createElement("th", {
-        width: "75"
+        width: "100"
       }, "Lines"), React__default.createElement("th", {
-        width: "75"
+        width: "100"
       }, "Statements"))), React__default.createElement("tbody", null, items.map(function (item) {
         return React__default.createElement("tr", {
           key: item.node.id
@@ -569,23 +566,7 @@ function (_Component) {
           style: {
             paddingLeft: 16
           }
-        }, item.node.path), React__default.createElement("td", {
-          style: {
-            textAlign: 'center'
-          }
-        }, item.node.data.branches.pct, "% (", item.node.data.branches.total, ")"), React__default.createElement("td", {
-          style: {
-            textAlign: 'center'
-          }
-        }, item.node.data.functions.pct, "% (", item.node.data.functions.total, ")"), React__default.createElement("td", {
-          style: {
-            textAlign: 'center'
-          }
-        }, item.node.data.lines.pct, "% (", item.node.data.lines.total, ")"), React__default.createElement("td", {
-          style: {
-            textAlign: 'center'
-          }
-        }, item.node.data.statements.pct, "% (", item.node.data.statements.total, ")"));
+        }, item.node.path), React__default.createElement("td", null, item.node.data.branches.pct, "% (", item.node.data.branches.total, ")"), React__default.createElement("td", null, item.node.data.functions.pct, "% (", item.node.data.functions.total, ")"), React__default.createElement("td", null, item.node.data.lines.pct, "% (", item.node.data.lines.total, ")"), React__default.createElement("td", null, item.node.data.statements.pct, "% (", item.node.data.statements.total, ")"));
       })));
     }
   }]);

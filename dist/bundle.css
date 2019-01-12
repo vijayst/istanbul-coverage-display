@@ -1,0 +1,14 @@
+.icd-table {
+  border-collapse: collapse;
+  font-size: 14px; }
+  .icd-table th {
+    text-align: center;
+    font-weight: bold; }
+  .icd-table th, .icd-table td {
+    padding: 8px;
+    border: 1px solid #eee; }
+  .icd-table td:nth-child(3),
+  .icd-table td:nth-child(4),
+  .icd-table td:nth-child(5),
+  .icd-table td:nth-child(6) {
+    text-align: center; }

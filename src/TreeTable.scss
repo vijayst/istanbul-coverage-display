@@ -1,0 +1,21 @@
+.icd-table {
+    border-collapse: collapse;
+    font-size: 14px;
+
+    th {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    th, td {
+        padding: 8px;
+        border: 1px solid #eee;
+    }
+
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6) {
+        text-align: center;
+    }
+}

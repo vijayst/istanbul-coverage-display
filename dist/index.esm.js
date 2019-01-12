@@ -531,22 +531,19 @@ function (_Component) {
 
       var items = this.state.items;
       return React.createElement("table", {
-        className: "icd-table",
-        border: "1",
-        cellSpacing: "0",
-        cellPadding: "8"
+        className: "icd-table"
       }, React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", {
         width: "300"
       }, "Folder / File"), React.createElement("th", {
         width: "300"
       }, "Path"), React.createElement("th", {
-        width: "75"
+        width: "100"
       }, "Branches"), React.createElement("th", {
-        width: "75"
+        width: "100"
       }, "Functions"), React.createElement("th", {
-        width: "75"
+        width: "100"
       }, "Lines"), React.createElement("th", {
-        width: "75"
+        width: "100"
       }, "Statements"))), React.createElement("tbody", null, items.map(function (item) {
         return React.createElement("tr", {
           key: item.node.id
@@ -562,23 +559,7 @@ function (_Component) {
           style: {
             paddingLeft: 16
           }
-        }, item.node.path), React.createElement("td", {
-          style: {
-            textAlign: 'center'
-          }
-        }, item.node.data.branches.pct, "% (", item.node.data.branches.total, ")"), React.createElement("td", {
-          style: {
-            textAlign: 'center'
-          }
-        }, item.node.data.functions.pct, "% (", item.node.data.functions.total, ")"), React.createElement("td", {
-          style: {
-            textAlign: 'center'
-          }
-        }, item.node.data.lines.pct, "% (", item.node.data.lines.total, ")"), React.createElement("td", {
-          style: {
-            textAlign: 'center'
-          }
-        }, item.node.data.statements.pct, "% (", item.node.data.statements.total, ")"));
+        }, item.node.path), React.createElement("td", null, item.node.data.branches.pct, "% (", item.node.data.branches.total, ")"), React.createElement("td", null, item.node.data.functions.pct, "% (", item.node.data.functions.total, ")"), React.createElement("td", null, item.node.data.lines.pct, "% (", item.node.data.lines.total, ")"), React.createElement("td", null, item.node.data.statements.pct, "% (", item.node.data.statements.total, ")"));
       })));
     }
   }]);

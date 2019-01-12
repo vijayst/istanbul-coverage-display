@@ -2,6 +2,7 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import pkg from './package.json';
+import scss from 'rollup-plugin-scss'
 
 const babelOptions = () => ({
     exclude: 'node_modules/**',
@@ -19,7 +20,7 @@ export default [
             format: 'es',
         },
         external: ['react', 'istanbul-lib-coverage', 'prop-types'],
-        plugins: [babel(babelOptions())],
+        plugins: [babel(babelOptions()), scss({ output: 'dist/bundle.css' })],
     },
     {
         input: 'src/index.js',
@@ -31,6 +32,6 @@ export default [
             }
         },
         external: ['react', 'istanbul-lib-coverage', 'prop-types'],
-        plugins: [nodeResolve(), babel(babelOptions()), commonjs()],
+        plugins: [nodeResolve(), babel(babelOptions()), commonjs(), scss({ output: 'dist/bundle.css' })],
     }
 ];

@@ -8,6 +8,8 @@ const htmlWebpackPlugin = new HtmlWebPackPlugin({
 });
 const copyWebPackPlugin = new CopyWebPackPlugin([{
     from: '_redirects'
+}, {
+    from: '../dist/bundle.css'
 }]);
 
 module.exports = {
