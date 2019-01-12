@@ -473,6 +473,23 @@ function (_Component) {
   }
 
   _createClass(TreeTable, [{
+    key: "getChildrenCount",
+    value: function getChildrenCount(item) {
+      var _this2 = this;
+
+      if (item.node.leaf) return 0;
+      if (!item.expanded) return 0;
+      var items = this.state.items;
+      var children = items.filter(function (i) {
+        return i.node.parentId === item.node.id;
+      });
+      var count = children.length;
+      children.forEach(function (c) {
+        count += _this2.getChildrenCount(c);
+      });
+      return count;
+    }
+  }, {
     key: "handleToggle",
     value: function handleToggle(id) {
       var items = this.state.items;
@@ -484,10 +501,8 @@ function (_Component) {
       var item = items[index];
 
       if (item.expanded) {
-        var length = items.filter(function (i) {
-          return i.node.parentId === id;
-        }).length;
-        items.splice(index + 1, length);
+        var count = this.getChildrenCount(item);
+        items.splice(index + 1, count);
         items[index] = _objectSpread({}, items[index], {
           expanded: false
         });
@@ -519,7 +534,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var items = this.state.items;
       return React__default.createElement("table", {
@@ -549,7 +564,7 @@ function (_Component) {
         }, item.node.leaf ? item.node.name : React__default.createElement(Dropdown, {
           text: item.node.name,
           expanded: item.expanded,
-          onToggle: _this2.handleToggle.bind(_this2, item.node.id)
+          onToggle: _this3.handleToggle.bind(_this3, item.node.id)
         })), React__default.createElement("td", {
           style: {
             paddingLeft: 16

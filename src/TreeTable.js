@@ -23,6 +23,18 @@ export default class TreeTable extends Component {
         this.state = { items };
     }
 
+    getChildrenCount(item) {
+        if (item.node.leaf) return 0;
+        if (!item.expanded) return 0;
+        const { items } = this.state;
+        const children = items.filter(i => i.node.parentId === item.node.id);
+        let count = children.length;
+        children.forEach(c => {
+            count += this.getChildrenCount(c);
+        });
+        return count;
+    }
+
     handleToggle(id) {
         let { items } = this.state;
         const { data } = this.props;
@@ -30,18 +42,20 @@ export default class TreeTable extends Component {
         const index = items.findIndex(i => i.node.id === id);
         const item = items[index];
         if (item.expanded) {
-            const length = items.filter(i => i.node.parentId === id).length;
-            items.splice(index + 1, length);
+            const count = this.getChildrenCount(item);
+            items.splice(index + 1, count);
             items[index] = {
                 ...items[index],
                 expanded: false
             };
             this.setState({ items });
         } else {
-            const children = data.filter(d => d.parentId === id).map(d => ({
-                node: d,
-                expanded: false
-            }));
+            const children = data
+                .filter(d => d.parentId === id)
+                .map(d => ({
+                    node: d,
+                    expanded: false
+                }));
             items.splice(index + 1, 0, ...children);
             items[index] = {
                 ...items[index],
@@ -73,14 +87,21 @@ export default class TreeTable extends Component {
                 <tbody>
                     {items.map(item => (
                         <tr key={item.node.id}>
-                            <td style={{ paddingLeft: 16 * (item.node.level + 1) }}>
+                            <td
+                                style={{
+                                    paddingLeft: 16 * (item.node.level + 1)
+                                }}
+                            >
                                 {item.node.leaf ? (
                                     item.node.name
                                 ) : (
                                     <Dropdown
                                         text={item.node.name}
                                         expanded={item.expanded}
-                                        onToggle={this.handleToggle.bind(this, item.node.id)}
+                                        onToggle={this.handleToggle.bind(
+                                            this,
+                                            item.node.id
+                                        )}
                                     />
                                 )}
                             </td>
