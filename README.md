@@ -14,7 +14,7 @@ to instrument the source code. This component has a peer (indirect) dependency o
 There is a bundle.scss which provides default styles.
 
 ```
-import 'istanbul-coverage-display/dist/bundle.scss'
+import 'istanbul-coverage-display/dist/bundle.css'
 ```
 
 ## Summary view
