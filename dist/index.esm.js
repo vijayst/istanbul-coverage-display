@@ -233,12 +233,14 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var magic = this.props.magic;
       var data = this.state.data;
       var position = this.getPosition();
       var showButtonStyle = Object.assign({}, BaseButtonStyle, position, {
         position: 'fixed',
         backgroundColor: 'red',
-        zIndex: 10000
+        zIndex: 10000,
+        opacity: magic ? 0 : 1
       });
       var hideButtonStyle = Object.assign({}, BaseButtonStyle, {
         backgroundColor: 'rgba(0,0,0,.24)',
@@ -285,7 +287,8 @@ function (_Component) {
   return Summary;
 }(Component);
 Summary.propTypes = {
-  position: PropTypes.oneOf(['bottomLeft', 'topLeft', 'bottomRight', 'topRight'])
+  position: PropTypes.oneOf(['bottomLeft', 'topLeft', 'bottomRight', 'topRight']),
+  magic: PropTypes.bool
 };
 Summary.defaultProps = {
   position: 'bottomLeft'

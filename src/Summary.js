@@ -71,12 +71,14 @@ export default class Summary extends Component {
     }
 
     render() {
+        const { magic } = this.props;
         const { data } = this.state;
         const position = this.getPosition();
         const showButtonStyle = Object.assign({}, BaseButtonStyle, position, {
             position: 'fixed',
             backgroundColor: 'red',
-            zIndex: 10000
+            zIndex: 10000,
+            opacity: magic ? 0 : 1
         });
 
         const hideButtonStyle = Object.assign({}, BaseButtonStyle, {
@@ -169,7 +171,8 @@ Summary.propTypes = {
         'topLeft',
         'bottomRight',
         'topRight'
-    ])
+    ]),
+    magic: PropTypes.bool
 };
 
 Summary.defaultProps = {
